@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Padding -->
+    <dimen name="padding_shortest">5dp</dimen>
+    <dimen name="padding_very_short">8dp</dimen>
+    <dimen name="padding_short">16dp</dimen>
+    <dimen name="padding_medium">32dp</dimen>
+    <dimen name="padding_long">64dp</dimen>
+
+    <!-- Margin -->
+    <dimen name="margin_shortest">5dp</dimen>
+    <dimen name="margin_very_short">8dp</dimen>
+    <dimen name="margin_short">16dp</dimen>
+    <dimen name="margin_medium">32dp</dimen>
+    <dimen name="margin_long">64dp</dimen>
+    <dimen name="margin_ignore_padding_shortest">-5dp</dimen>
+    <dimen name="margin_ignore_padding_very_short">-8dp</dimen>
+    <dimen name="margin_ignore_padding_short">-16dp</dimen>
+    <dimen name="margin_ignore_padding_medium">-32dp</dimen>
+    <dimen name="margin_ignore_padding_long">-64dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="text_very_small">10sp</dimen>
+    <dimen name="text_small">15sp</dimen>
+    <dimen name="text_medium">20sp</dimen>
+    <dimen name="text_big">30sp</dimen>
+
+    <!-- Dimens -->
+    <dimen name="action_bar_height">60dp</dimen>
+    <dimen name="avatar_width">70dp</dimen>
+    <dimen name="avatar_height">70dp</dimen>
+    <dimen name="chat_height">90dp</dimen>
+
+</resources>

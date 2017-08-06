@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TestTaskDB2</string>
+    <string name="toolbar_title">Chat</string>
+    <string name="mi_action">Action</string>
 </resources>

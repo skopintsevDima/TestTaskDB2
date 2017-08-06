@@ -3,9 +3,38 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/dark_blue</item>
+        <item name="colorPrimaryDark">@color/darkest_blue</item>
+        <item name="colorAccent">@color/light_blue</item>
+    </style>
+
+    <!-- Theme without ActionBar -->
+    <style name = "AppTheme.NoActionBarTheme" parent = "Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/dark_blue</item>
+        <item name="colorPrimaryDark">@color/darkest_blue</item>
+        <item name="colorAccent">@color/light_blue</item>
+        <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
+    </style>
+
+    <!-- ActionBar style -->
+    <style name="AppTheme.ActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/dark_blue</item>
+        <item name="height">@dimen/action_bar_height</item>
+        <!-- Support library compatibility -->
+        <item name="background">@color/dark_blue</item>
+
+        <item name="android:titleTextStyle">@style/AppTheme.ActionBar.Title</item>
+        <!-- Support library compatibility -->
+        <item name="titleTextStyle">@style/AppTheme.ActionBar.Title</item>
+    </style>
+
+    <!-- ActionBar title text -->
+    <style name="AppTheme.ActionBar.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>
