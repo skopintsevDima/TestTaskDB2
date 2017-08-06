@@ -5,11 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.skopincev.testtaskdb2.R;
 import com.skopincev.testtaskdb2.data.model.Chat;
-
+import com.skopincev.testtaskdb2.ui.view.NumberTag;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by skopi on 06.08.2017.
@@ -19,15 +22,35 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
 
     public static class ChatHolder extends RecyclerView.ViewHolder{
 
+        private CircleImageView ivAvatar;
+        private TextView tvName;
+        private TextView tvLastMsg;
+        private TextView tvTime;
+        private NumberTag ntMessages;
+
         public ChatHolder(View itemView) {
             super(itemView);
 
-            //find views
+            ivAvatar = (CircleImageView) itemView.findViewById(R.id.iv_avatar);
+            tvName = (TextView) itemView.findViewById(R.id.tv_name);
+            tvLastMsg = (TextView) itemView.findViewById(R.id.tv_last_msg);
+            tvTime = (TextView) itemView.findViewById(R.id.tv_time);
+            ntMessages = (NumberTag) itemView.findViewById(R.id.nt_messages);
         }
 
         public void bind(Chat data){
             if (data != null) {
-                //set views data
+                String photoPath = data.getCompanion().getPhotoPath();
+                String name = data.getCompanion().getName();
+                String lastMsg = data.getMessages().last().getText();
+                String time = data.getMessages().last().getTime();
+                int unread= data.getUnread();
+
+                //TODO: set photo
+                tvName.setText(name);
+                tvLastMsg.setText(lastMsg);
+                tvTime.setText(time);
+                //TODO: init tag
             }
         }
     }

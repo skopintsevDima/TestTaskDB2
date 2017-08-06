@@ -13,7 +13,13 @@ public class Message extends RealmObject{
 
     private String text;
 
-    private Integer time;
+    private String time;
+
+    private Long timeSend;
+
+    private User sender;
+
+    private boolean read;
 
     public String getId() {
         return id;
@@ -31,12 +37,36 @@ public class Message extends RealmObject{
         this.text = text;
     }
 
-    public Integer getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Integer time) {
+    public void setTime(String time) {
         this.time = time;
+    }
+
+    public Long getTimeSend() {
+        return timeSend;
+    }
+
+    public void setTimeSend(Long timeSend) {
+        this.timeSend = timeSend;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 
     public Message(){
@@ -45,9 +75,15 @@ public class Message extends RealmObject{
 
     public Message(String id,
                    String text,
-                   Integer time){
+                   String time,
+                   Long timeSend,
+                   User sender,
+                   boolean read){
         this.id = id;
         this.text = text;
         this.time = time;
+        this.timeSend = timeSend;
+        this.sender = sender;
+        this.read = read;
     }
 }

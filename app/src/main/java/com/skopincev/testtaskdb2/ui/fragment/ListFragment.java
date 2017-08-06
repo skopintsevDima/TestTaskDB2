@@ -10,7 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.skopincev.testtaskdb2.R;
+import com.skopincev.testtaskdb2.data.model.Chat;
+import com.skopincev.testtaskdb2.data.model.Message;
+import com.skopincev.testtaskdb2.data.model.User;
 import com.skopincev.testtaskdb2.ui.adapter.ChatsAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import io.realm.RealmList;
 
 /**
  * Created by skopi on 06.08.2017.
@@ -19,6 +28,9 @@ import com.skopincev.testtaskdb2.ui.adapter.ChatsAdapter;
 public class ListFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private ChatsAdapter adapter;
+
+    private List<Chat> chats = new ArrayList<>();
 
     public static ListFragment newInstance() {
 
@@ -45,14 +57,40 @@ public class ListFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-//        loadChats();
-//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_surveys);
-//         adapter = new ChatsAdapter(this, surveys);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(adapter);
+        loadChats();
+        adapter = new ChatsAdapter(getContext(), chats);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
     }
 
     private void loadChats() {
-
+        //TODO: load chats from DB
+        User sender = new User(UUID.randomUUID().toString(),
+                "Joe Doe",
+                "",
+                new RealmList<Chat>());
+        Message msg = new Message(UUID.randomUUID().toString(),
+                "Hello world!!!",
+                "16:04",
+                System.currentTimeMillis(),
+                sender,
+                false);
+        RealmList<Message> messages = new RealmList<>();
+        messages.add(msg);
+        Chat chat1 = new Chat(UUID.randomUUID().toString(),
+                sender,
+                messages,
+                1);
+        Chat chat2 = new Chat(UUID.randomUUID().toString(),
+                sender,
+                messages,
+                1);
+        Chat chat3 = new Chat(UUID.randomUUID().toString(),
+                sender,
+                messages,
+                1);
+        chats.add(chat1);
+        chats.add(chat2);
+        chats.add(chat3);
     }
 }

@@ -14,7 +14,9 @@ public class Chat extends RealmObject{
 
     private User companion;
 
-    private RealmList<Message> messages;
+    private RealmList<Message> messages = new RealmList<>();
+
+    private Integer unread;
 
     public String getId() {
         return id;
@@ -32,15 +34,37 @@ public class Chat extends RealmObject{
         this.messages = messages;
     }
 
+    public User getCompanion() {
+        return companion;
+    }
+
+    public void setCompanion(User companion) {
+        this.companion = companion;
+    }
+
+    public Integer getUnread() {
+        int count = 0;
+        for (Message message: messages)
+            if (!message.isRead())
+                count++;
+        return count;
+    }
+
+    public void setUnread(Integer unread) {
+        this.unread = unread;
+    }
+
     public Chat(){
 
     }
 
     public Chat(String id,
                 User companion,
-                RealmList<Message> messages){
+                RealmList<Message> messages,
+                Integer unread){
         this.id = id;
         this.companion = companion;
         this.messages = messages;
+        this.unread = unread;
     }
 }
