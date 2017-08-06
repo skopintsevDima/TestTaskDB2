@@ -64,7 +64,7 @@ public class ListFragment extends Fragment {
     }
 
     private void loadChats() {
-        //TODO: load chats from DB
+        //TODO: load chats from DB instead of hardcode
         User sender = new User(UUID.randomUUID().toString(),
                 "Joe Doe",
                 "",
@@ -79,16 +79,13 @@ public class ListFragment extends Fragment {
         messages.add(msg);
         Chat chat1 = new Chat(UUID.randomUUID().toString(),
                 sender,
-                messages,
-                1);
+                messages);
         Chat chat2 = new Chat(UUID.randomUUID().toString(),
                 sender,
-                messages,
-                1);
+                messages);
         Chat chat3 = new Chat(UUID.randomUUID().toString(),
                 sender,
-                messages,
-                1);
+                messages);
         chats.add(chat1);
         chats.add(chat2);
         chats.add(chat3);

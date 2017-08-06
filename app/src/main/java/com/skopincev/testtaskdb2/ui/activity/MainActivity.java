@@ -13,18 +13,35 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.skopincev.testtaskdb2.R;
+import com.skopincev.testtaskdb2.data.model.Chat;
+import com.skopincev.testtaskdb2.data.model.User;
 import com.skopincev.testtaskdb2.ui.adapter.ViewPagerAdapter;
 import com.skopincev.testtaskdb2.ui.fragment.EmptyFragment;
 import com.skopincev.testtaskdb2.ui.fragment.ListFragment;
 
+import java.util.UUID;
+
+import io.realm.RealmList;
+
 public class MainActivity extends AppCompatActivity {
+
+    private ViewPagerAdapter adapter;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initUser();
         initUI();
+    }
+
+    private void initUser() {
+        user = new User(UUID.randomUUID().toString(),
+                "Dima Skopintsev",
+                "",
+                new RealmList<Chat>());
     }
 
     private void initUI() {
@@ -39,10 +56,12 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tl_tabs);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setCustomView(adapter.getTabView(0, user.getUnreadCount(), getLayoutInflater()));
+        tabLayout.getTabAt(1).setCustomView(adapter.getTabView(1, 15, getLayoutInflater()));
     }
 
     private void initViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
     }
 

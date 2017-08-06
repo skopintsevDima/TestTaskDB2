@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.skopincev.testtaskdb2.R;
 import com.skopincev.testtaskdb2.data.model.Chat;
 import com.skopincev.testtaskdb2.ui.view.NumberTag;
@@ -22,6 +24,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
 
     public static class ChatHolder extends RecyclerView.ViewHolder{
 
+        public SwipeRevealLayout swipeRevealLayout;
         private CircleImageView ivAvatar;
         private TextView tvName;
         private TextView tvLastMsg;
@@ -31,6 +34,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
         public ChatHolder(View itemView) {
             super(itemView);
 
+            swipeRevealLayout = (SwipeRevealLayout) itemView.findViewById(R.id.srl_swipe);
             ivAvatar = (CircleImageView) itemView.findViewById(R.id.iv_avatar);
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvLastMsg = (TextView) itemView.findViewById(R.id.tv_last_msg);
@@ -50,17 +54,19 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
                 tvName.setText(name);
                 tvLastMsg.setText(lastMsg);
                 tvTime.setText(time);
-                //TODO: init tag
+                ntMessages.setNumber(unread);
             }
         }
     }
 
     private List<Chat> items;
     private LayoutInflater inflater;
+    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public ChatsAdapter(Context context, List<Chat> items){
         this.inflater = LayoutInflater.from(context);
         this.items = items;
+        viewBinderHelper.setOpenOnlyOne(true);
     }
 
     public void addItem(Chat item){
@@ -81,6 +87,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
         if (items != null)
             data = items.get(position);
         if (data != null) {
+            viewBinderHelper.bind(holder.swipeRevealLayout, data.getId());
             holder.bind(data);
         }
     }

@@ -16,7 +16,7 @@ public class User extends RealmObject{
 
     private String photoPath;
 
-    private RealmList<Chat> chats;
+    private RealmList<Chat> chats = new RealmList<>();
 
     public String getId() {
         return id;
@@ -48,6 +48,14 @@ public class User extends RealmObject{
 
     public void setChats(RealmList<Chat> chats) {
         this.chats = chats;
+    }
+
+    public Integer getUnreadCount() {
+        int count = 0;
+        for (Chat chat: chats)
+            count += chat.getUnread();
+
+        return count;
     }
 
     public User(){

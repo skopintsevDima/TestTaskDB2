@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tab_height"
+    android:background="@drawable/tab_background">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/text_small"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="@dimen/margin_very_short"/>
+
+    <com.skopincev.testtaskdb2.ui.view.NumberTag
+        android:id="@+id/nt_messages"
+        android:layout_width="@dimen/tag_view_width"
+        android:layout_height="@dimen/tag_view_height"
+        android:layout_toEndOf="@+id/tv_title"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>
