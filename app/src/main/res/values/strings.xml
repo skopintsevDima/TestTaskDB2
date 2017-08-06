@@ -3,4 +3,5 @@
     <string name="toolbar_title">Chat</string>
     <string name="mi_action">Action</string>
     <string name="btn_remove_text">Remove</string>
+    <string name="btn_back_text">Back</string>
 </resources>

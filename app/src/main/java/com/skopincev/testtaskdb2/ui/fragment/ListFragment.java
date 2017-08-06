@@ -77,17 +77,11 @@ public class ListFragment extends Fragment {
                 false);
         RealmList<Message> messages = new RealmList<>();
         messages.add(msg);
-        Chat chat1 = new Chat(UUID.randomUUID().toString(),
+        Chat chat = new Chat(UUID.randomUUID().toString(),
                 sender,
                 messages);
-        Chat chat2 = new Chat(UUID.randomUUID().toString(),
-                sender,
-                messages);
-        Chat chat3 = new Chat(UUID.randomUUID().toString(),
-                sender,
-                messages);
-        chats.add(chat1);
-        chats.add(chat2);
-        chats.add(chat3);
+        int chats_count = 10;
+        for (int i = 0; i < chats_count; i++)
+            chats.add(chat);
     }
 }

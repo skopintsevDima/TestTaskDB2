@@ -1,5 +1,6 @@
 package com.skopincev.testtaskdb2.ui.activity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,8 +17,6 @@ import com.skopincev.testtaskdb2.R;
 import com.skopincev.testtaskdb2.data.model.Chat;
 import com.skopincev.testtaskdb2.data.model.User;
 import com.skopincev.testtaskdb2.ui.adapter.ViewPagerAdapter;
-import com.skopincev.testtaskdb2.ui.fragment.EmptyFragment;
-import com.skopincev.testtaskdb2.ui.fragment.ListFragment;
 
 import java.util.UUID;
 
@@ -71,15 +70,20 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    private void launchEmptyActivity(){
+        Intent intent = new Intent(this, EmptyActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.mi_action:{
-                //TODO: some action will be here
+                launchEmptyActivity();
                 break;
             }
             case android.R.id.home:{
-                finish();
+                launchEmptyActivity();
             }
         }
         return super.onOptionsItemSelected(item);
