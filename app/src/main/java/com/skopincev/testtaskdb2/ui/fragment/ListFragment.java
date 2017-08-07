@@ -1,6 +1,5 @@
 package com.skopincev.testtaskdb2.ui.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,22 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.skopincev.testtaskdb2.BundleConst;
 import com.skopincev.testtaskdb2.R;
 import com.skopincev.testtaskdb2.data.HardcodeGenerator;
 import com.skopincev.testtaskdb2.data.db.RealmApi;
 import com.skopincev.testtaskdb2.data.db.RealmApiImpl;
 import com.skopincev.testtaskdb2.data.model.Chat;
-import com.skopincev.testtaskdb2.data.model.Message;
 import com.skopincev.testtaskdb2.data.model.User;
 import com.skopincev.testtaskdb2.ui.adapter.ChatsAdapter;
 import com.skopincev.testtaskdb2.ui.adapter.ChatsAdapter.OnChatsChangeListener;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import io.realm.RealmList;
 
 /**
  * Created by skopi on 06.08.2017.

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.skopincev.testtaskdb2.R;
 import com.skopincev.testtaskdb2.data.model.Message;
 import com.skopincev.testtaskdb2.data.model.User;
+import com.skopincev.testtaskdb2.resolver.TimeResolver;
 
 import java.util.List;
 
@@ -42,12 +43,31 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public void bind(Message data){
             if (data != null) {
-                long difference = data.getLastMsgDifference();
+                long timeSend = data.getTimeSend();
+                long difference = System.currentTimeMillis() - timeSend;
                 String time = data.getTime();
                 String msg = data.getText();
 
-                //TODO: resolve data
-                tvDate.setText("Today");
+                String dateType = TimeResolver.getMessageDateByDifference(difference);
+                switch (dateType) {
+                    case TimeResolver.DATE_TYPE.NONE:{
+                        ((ViewGroup)tvDate.getParent()).removeView(tvDate);
+                        break;
+                    }
+                    case TimeResolver.DATE_TYPE.TODAY:{
+                        tvDate.setText(TimeResolver.DATE_TYPE.TODAY);
+                        break;
+                    }
+                    case TimeResolver.DATE_TYPE.YESTERDAY:{
+                        tvDate.setText(TimeResolver.DATE_TYPE.YESTERDAY);
+                        break;
+                    }
+                    case TimeResolver.DATE_TYPE.DATE:{
+                        String date = TimeResolver.getDateByMilli(timeSend);
+                        tvDate.setText(date);
+                        break;
+                    }
+                }
                 tvTime.setText(time);
                 tvMsg.setText(msg);
             }
@@ -70,12 +90,31 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public void bind(Message data){
             if (data != null) {
-                long difference = data.getLastMsgDifference();
+                long timeSend = data.getTimeSend();
+                long difference = System.currentTimeMillis() - timeSend;
                 String msg = data.getText();
                 String photoPath = data.getSender().getPhotoPath();
 
-                //TODO: implement date mechanism
-                tvDate.setText("Today");
+                String dateType = TimeResolver.getMessageDateByDifference(difference);
+                    switch (dateType) {
+                        case TimeResolver.DATE_TYPE.NONE:{
+                            ((ViewGroup)tvDate.getParent()).removeView(tvDate);
+                            break;
+                        }
+                        case TimeResolver.DATE_TYPE.TODAY:{
+                            tvDate.setText(TimeResolver.DATE_TYPE.TODAY);
+                            break;
+                        }
+                        case TimeResolver.DATE_TYPE.YESTERDAY:{
+                            tvDate.setText(TimeResolver.DATE_TYPE.YESTERDAY);
+                            break;
+                        }
+                        case TimeResolver.DATE_TYPE.DATE:{
+                            String date = TimeResolver.getDateByMilli(timeSend);
+                            tvDate.setText(date);
+                            break;
+                        }
+                }
                 tvMsg.setText(msg);
                 //TODO: set photo
             }

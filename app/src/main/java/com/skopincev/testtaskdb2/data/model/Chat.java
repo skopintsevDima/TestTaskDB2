@@ -49,14 +49,6 @@ public class Chat extends RealmObject{
     }
 
     public void addMessage(Message msg){
-        if (!messages.isEmpty()){
-            Message last = messages.last();
-            long difference = msg.getTimeSend() - last.getTimeSend();
-            msg.setLastMsgDifference(difference);
-        } else {
-            long difference = 0;
-            msg.setLastMsgDifference(difference);
-        }
         messages.add(msg);
     }
 
