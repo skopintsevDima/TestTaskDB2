@@ -21,6 +21,8 @@ public class Message extends RealmObject{
 
     private boolean read;
 
+    private long lastMsgDifference;
+
     public String getId() {
         return id;
     }
@@ -67,6 +69,14 @@ public class Message extends RealmObject{
 
     public void setRead(boolean read) {
         this.read = read;
+    }
+
+    public long getLastMsgDifference() {
+        return lastMsgDifference;
+    }
+
+    public void setLastMsgDifference(long lastMsgDifference) {
+        this.lastMsgDifference = lastMsgDifference;
     }
 
     public Message(){

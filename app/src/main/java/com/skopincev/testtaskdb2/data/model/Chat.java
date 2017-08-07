@@ -24,20 +24,20 @@ public class Chat extends RealmObject{
         this.id = id;
     }
 
-    public RealmList<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(RealmList<Message> messages) {
-        this.messages = messages;
-    }
-
     public User getCompanion() {
         return companion;
     }
 
     public void setCompanion(User companion) {
         this.companion = companion;
+    }
+
+    public RealmList<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(RealmList<Message> messages) {
+        this.messages = messages;
     }
 
     public Integer getUnread() {

@@ -1,16 +1,22 @@
 package com.skopincev.testtaskdb2.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
+import com.skopincev.testtaskdb2.BundleConst;
 import com.skopincev.testtaskdb2.R;
 import com.skopincev.testtaskdb2.data.model.Chat;
+import com.skopincev.testtaskdb2.data.model.User;
+import com.skopincev.testtaskdb2.ui.activity.ChatActivity;
 import com.skopincev.testtaskdb2.ui.view.NumberTag;
 import java.util.List;
 
@@ -22,28 +28,36 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> {
 
-    public static class ChatHolder extends RecyclerView.ViewHolder{
+    public class ChatHolder extends RecyclerView.ViewHolder{
 
         public SwipeRevealLayout swipeRevealLayout;
         private CircleImageView ivAvatar;
         private TextView tvName;
         private TextView tvLastMsg;
         private TextView tvTime;
+        private ImageButton ibOpenChat;
         private NumberTag ntMessages;
+        private Button btnRemove;
+
+        private Context context;
 
         public ChatHolder(View itemView) {
             super(itemView);
+            context = itemView.getContext();
 
             swipeRevealLayout = (SwipeRevealLayout) itemView.findViewById(R.id.srl_swipe);
             ivAvatar = (CircleImageView) itemView.findViewById(R.id.iv_avatar);
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvLastMsg = (TextView) itemView.findViewById(R.id.tv_last_msg);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
+            ibOpenChat = (ImageButton) itemView.findViewById(R.id.ib_open);
             ntMessages = (NumberTag) itemView.findViewById(R.id.nt_messages);
+            btnRemove = (Button) itemView.findViewById(R.id.btn_remove);
         }
 
         public void bind(Chat data){
             if (data != null) {
+
                 String photoPath = data.getCompanion().getPhotoPath();
                 String name = data.getCompanion().getName();
                 String lastMsg = data.getMessages().last().getText();
@@ -55,23 +69,40 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
                 tvLastMsg.setText(lastMsg);
                 tvTime.setText(time);
                 ntMessages.setNumber(unread);
+                ibOpenChat.setOnClickListener(button -> openChat(data));
+                btnRemove.setOnClickListener(button -> removeItem(getPosition()));
             }
+        }
+
+        private void openChat(Chat data) {
+            Intent intent = new Intent(context, ChatActivity.class);
+            intent.putExtra(BundleConst.CHAT_ID_KEY, data.getId());
+            intent.putExtra(BundleConst.COMPANION_NAME_KEY, data.getCompanion().getName());
+            intent.putExtra(BundleConst.USER_ID_KEY, user.getId());
+            context.startActivity(intent);
         }
     }
 
     private List<Chat> items;
     private LayoutInflater inflater;
+    private User user;
     private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
-    public ChatsAdapter(Context context, List<Chat> items){
+    public ChatsAdapter(Context context, List<Chat> items, User user){
         this.inflater = LayoutInflater.from(context);
         this.items = items;
+        this.user = user;
         viewBinderHelper.setOpenOnlyOne(true);
     }
 
     public void addItem(Chat item){
         items.add(item);
-        notifyDataSetChanged();
+        notifyItemInserted(items.size() + 1);
+    }
+
+    public void removeItem(int position){
+        items.remove(position);
+        notifyItemRemoved(position);
     }
 
     @Override

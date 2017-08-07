@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/light_gray"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="@dimen/padding_short"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_avatar"
+        android:layout_below="@+id/tv_date"
+        android:layout_marginStart="@dimen/margin_short"
+        android:layout_marginEnd="@dimen/margin_short"/>
+
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="@dimen/max_msg_width"
+        android:text="@string/lorem_ipsum"
+        android:textSize="@dimen/text_small"
+        android:textColor="@color/dark_gray"
+        android:padding="@dimen/padding_short"
+        android:background="@drawable/sender_msg_background"
+        android:layout_toEndOf="@+id/iv_avatar"
+        android:layout_below="@+id/tv_date"/>
+
+</RelativeLayout>

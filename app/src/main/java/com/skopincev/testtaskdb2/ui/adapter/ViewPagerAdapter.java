@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.skopincev.testtaskdb2.R;
+import com.skopincev.testtaskdb2.data.model.User;
 import com.skopincev.testtaskdb2.ui.fragment.EmptyFragment;
 import com.skopincev.testtaskdb2.ui.fragment.ListFragment;
 import com.skopincev.testtaskdb2.ui.view.NumberTag;
@@ -20,28 +21,24 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                     "Chat",
                     "Live chat"
             };
+    private User user;
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm, User user) {
         super(fm);
-
-        initTabs();
-    }
-
-    private void initTabs() {
-
+        this.user = user;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0: {
-                return ListFragment.newInstance();
+                return ListFragment.newInstance(user.getId());
             }
             case 1: {
                 return EmptyFragment.newInstance();
             }
             default:{
-                return ListFragment.newInstance();
+                return ListFragment.newInstance(user.getId());
             }
         }
     }

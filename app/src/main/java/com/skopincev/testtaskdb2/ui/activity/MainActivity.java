@@ -2,18 +2,16 @@ package com.skopincev.testtaskdb2.ui.activity;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import com.skopincev.testtaskdb2.R;
+import com.skopincev.testtaskdb2.data.db.RealmApi;
+import com.skopincev.testtaskdb2.data.db.RealmApiImpl;
 import com.skopincev.testtaskdb2.data.model.Chat;
 import com.skopincev.testtaskdb2.data.model.User;
 import com.skopincev.testtaskdb2.ui.adapter.ViewPagerAdapter;
@@ -41,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
                 "Dima Skopintsev",
                 "",
                 new RealmList<Chat>());
+        RealmApi realmApi = new RealmApiImpl();
+        realmApi.putUser(user);
     }
 
     private void initUI() {
@@ -60,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), user);
         viewPager.setAdapter(adapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.skopincev.testtaskdb2.ui.activity.ChatActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/et_message">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <EditText
+        android:id="@+id/et_message"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/message_panel_height"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:layout_marginStart="@dimen/margin_very_short"
+        android:layout_marginEnd="@dimen/margin_very_short"
+        android:hint="@string/message_hint"
+        android:textColorHint="@color/light_gray"
+        android:drawableEnd="@drawable/ic_camera"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
