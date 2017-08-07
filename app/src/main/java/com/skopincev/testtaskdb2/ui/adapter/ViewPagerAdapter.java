@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.skopincev.testtaskdb2.R;
 import com.skopincev.testtaskdb2.data.model.User;
+import com.skopincev.testtaskdb2.ui.adapter.ChatsAdapter.OnChatsChangeListener;
 import com.skopincev.testtaskdb2.ui.fragment.EmptyFragment;
 import com.skopincev.testtaskdb2.ui.fragment.ListFragment;
 import com.skopincev.testtaskdb2.ui.view.NumberTag;
@@ -22,23 +23,31 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                     "Live chat"
             };
     private User user;
+    private OnChatsChangeListener onChatsChangeListener;
 
-    public ViewPagerAdapter(FragmentManager fm, User user) {
+    public ViewPagerAdapter(FragmentManager fm, User user, OnChatsChangeListener onChatsChangeListener) {
         super(fm);
         this.user = user;
+        this.onChatsChangeListener = onChatsChangeListener;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0: {
-                return ListFragment.newInstance(user.getId());
+                ListFragment fragment = ListFragment.newInstance();
+                fragment.setOnChatsChangeListener(onChatsChangeListener);
+                fragment.setUser(user);
+                return fragment;
             }
             case 1: {
                 return EmptyFragment.newInstance();
             }
             default:{
-                return ListFragment.newInstance(user.getId());
+                ListFragment fragment = ListFragment.newInstance();
+                fragment.setOnChatsChangeListener(onChatsChangeListener);
+                fragment.setUser(user);
+                return fragment;
             }
         }
     }

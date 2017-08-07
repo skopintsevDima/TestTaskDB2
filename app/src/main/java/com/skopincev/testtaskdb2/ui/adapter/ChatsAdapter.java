@@ -14,6 +14,8 @@ import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.skopincev.testtaskdb2.BundleConst;
 import com.skopincev.testtaskdb2.R;
+import com.skopincev.testtaskdb2.data.db.RealmApi;
+import com.skopincev.testtaskdb2.data.db.RealmApiImpl;
 import com.skopincev.testtaskdb2.data.model.Chat;
 import com.skopincev.testtaskdb2.data.model.User;
 import com.skopincev.testtaskdb2.ui.activity.ChatActivity;
@@ -83,15 +85,22 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
         }
     }
 
+    public interface OnChatsChangeListener {
+        void onChanged();
+    }
+
     private List<Chat> items;
     private LayoutInflater inflater;
     private User user;
     private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
+    private RealmApi realmApi = new RealmApiImpl();
+    private OnChatsChangeListener onChatsChangeListener;
 
-    public ChatsAdapter(Context context, List<Chat> items, User user){
+    public ChatsAdapter(Context context, User user, OnChatsChangeListener onChatsChangeListener){
         this.inflater = LayoutInflater.from(context);
-        this.items = items;
         this.user = user;
+        this.items = user.getChats();
+        this.onChatsChangeListener = onChatsChangeListener;
         viewBinderHelper.setOpenOnlyOne(true);
     }
 
@@ -101,7 +110,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
     }
 
     public void removeItem(int position){
-        items.remove(position);
+        realmApi.removeChatForUserByPosition(position, user);
+        onChatsChangeListener.onChanged();
         notifyItemRemoved(position);
     }
 
@@ -130,5 +140,4 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
         else
             return 0;
     }
-
 }

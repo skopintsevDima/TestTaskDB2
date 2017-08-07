@@ -1,6 +1,7 @@
 package com.skopincev.testtaskdb2.ui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,22 +9,32 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.skopincev.testtaskdb2.BundleConst;
 import com.skopincev.testtaskdb2.R;
 import com.skopincev.testtaskdb2.data.db.RealmApi;
 import com.skopincev.testtaskdb2.data.db.RealmApiImpl;
 import com.skopincev.testtaskdb2.data.model.Chat;
 import com.skopincev.testtaskdb2.data.model.User;
+import com.skopincev.testtaskdb2.ui.adapter.ChatsAdapter;
 import com.skopincev.testtaskdb2.ui.adapter.ViewPagerAdapter;
+import com.skopincev.testtaskdb2.ui.view.NumberTag;
 
 import java.util.UUID;
 
 import io.realm.RealmList;
 
+import static com.skopincev.testtaskdb2.BundleConst.USER_ID_KEY;
+
 public class MainActivity extends AppCompatActivity {
 
     private ViewPagerAdapter adapter;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+
     private User user;
+    private RealmApi realmApi = new RealmApiImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +46,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initUser() {
-        user = new User(UUID.randomUUID().toString(),
-                "Dima Skopintsev",
-                "",
-                new RealmList<Chat>());
-        RealmApi realmApi = new RealmApiImpl();
-        realmApi.putUser(user);
+        SharedPreferences local_pref = getSharedPreferences(BundleConst.SHARED_PREF_NAME, MODE_PRIVATE);
+        String userId = local_pref.getString(USER_ID_KEY, "");
+        if (userId.equals("")){
+            user = new User(UUID.randomUUID().toString(),
+                    "Dima Skopintsev",
+                    "",
+                    new RealmList<Chat>());
+
+            realmApi.putUser(user);
+
+            getSharedPreferences(BundleConst.SHARED_PREF_NAME, MODE_PRIVATE)
+                    .edit()
+                    .putString(USER_ID_KEY, user.getId())
+                    .apply();
+        } else {
+            user = realmApi.getUserById(userId);
+        }
     }
 
     private void initUI() {
@@ -50,17 +72,21 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.vp_pager);
+        viewPager = (ViewPager) findViewById(R.id.vp_pager);
         initViewPager(viewPager);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tl_tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tl_tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setCustomView(adapter.getTabView(0, user.getUnreadCount(), getLayoutInflater()));
         tabLayout.getTabAt(1).setCustomView(adapter.getTabView(1, 15, getLayoutInflater()));
     }
 
     private void initViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager(), user);
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), user, () -> {
+            View view = tabLayout.getTabAt(0).getCustomView();
+            NumberTag ntUnread = (NumberTag) view.findViewById(R.id.nt_messages);
+            ntUnread.setNumber(user.getUnreadCount());
+        });
         viewPager.setAdapter(adapter);
     }
 

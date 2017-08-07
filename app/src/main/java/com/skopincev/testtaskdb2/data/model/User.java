@@ -1,5 +1,8 @@
 package com.skopincev.testtaskdb2.data.model;
 
+import com.skopincev.testtaskdb2.data.db.RealmApi;
+import com.skopincev.testtaskdb2.data.db.RealmApiImpl;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -56,6 +59,11 @@ public class User extends RealmObject{
             count += chat.getUnread();
 
         return count;
+    }
+
+    public void addChat(Chat chat){
+        RealmApi realmApi = new RealmApiImpl();
+        realmApi.addChatForUser(chat, this);
     }
 
     public User(){

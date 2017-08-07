@@ -54,4 +54,20 @@ public class RealmApiImpl implements RealmApi {
                 .findFirst();
         return user;
     }
+
+    @Override
+    public void addChatForUser(Chat chat, User user) {
+        realm.executeTransaction(rm -> {
+            user.getChats().add(chat);
+            rm.copyToRealmOrUpdate(user);
+        });
+    }
+
+    @Override
+    public void removeChatForUserByPosition(int position, User user) {
+        realm.executeTransaction(rm -> {
+            user.getChats().remove(position);
+            rm.copyToRealmOrUpdate(user);
+        });
+    }
 }

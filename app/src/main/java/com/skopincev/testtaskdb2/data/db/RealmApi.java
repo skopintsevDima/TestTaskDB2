@@ -19,4 +19,8 @@ public interface RealmApi {
     void putUser(User user);
 
     User getUserById(String id);
+
+    void addChatForUser(Chat chat, User user);
+
+    void removeChatForUserByPosition(int position, User user);
 }

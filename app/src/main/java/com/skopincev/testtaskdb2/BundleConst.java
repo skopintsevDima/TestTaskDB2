@@ -9,4 +9,7 @@ public interface BundleConst {
     String CHAT_ID_KEY = "CHAT_ID_KEY";
     String COMPANION_NAME_KEY = "COMPANION_NAME_KEY";
     String USER_ID_KEY = "USER_ID_KEY";
+
+    //NAME
+    String SHARED_PREF_NAME = "local_prefs";
 }
