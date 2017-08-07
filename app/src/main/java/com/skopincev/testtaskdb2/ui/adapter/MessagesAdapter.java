@@ -74,7 +74,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 String msg = data.getText();
                 String photoPath = data.getSender().getPhotoPath();
 
-                //TODO: resolve data
+                //TODO: implement date mechanism
                 tvDate.setText("Today");
                 tvMsg.setText(msg);
                 //TODO: set photo

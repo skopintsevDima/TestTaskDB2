@@ -1,5 +1,7 @@
 package com.skopincev.testtaskdb2.data.model;
 
+import com.skopincev.testtaskdb2.resolver.TimeResolver;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -12,8 +14,6 @@ public class Message extends RealmObject{
     private String id;
 
     private String text;
-
-    private String time;
 
     private Long timeSend;
 
@@ -40,11 +40,7 @@ public class Message extends RealmObject{
     }
 
     public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+        return TimeResolver.getTimeOfDayByMilli(timeSend);
     }
 
     public Long getTimeSend() {
@@ -85,13 +81,11 @@ public class Message extends RealmObject{
 
     public Message(String id,
                    String text,
-                   String time,
                    Long timeSend,
                    User sender,
                    boolean read){
         this.id = id;
         this.text = text;
-        this.time = time;
         this.timeSend = timeSend;
         this.sender = sender;
         this.read = read;

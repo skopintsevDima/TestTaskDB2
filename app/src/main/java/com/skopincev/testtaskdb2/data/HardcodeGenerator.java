@@ -18,28 +18,24 @@ public class HardcodeGenerator {
     public static RealmList<Message> createDialog(User sender, User user) {
         RealmList<Message> messages = new RealmList<>();
 
-        //TODO: get unread count
+        //TODO: implement unread mechanism
         Message msg1 = new Message(UUID.randomUUID().toString(),
                 "Hello!!!",
-                "16:04",
                 System.currentTimeMillis(),
                 user,
                 false);
         Message msg2 = new Message(UUID.randomUUID().toString(),
                 "Hi!!!",
-                "16:05",
                 System.currentTimeMillis(),
                 sender,
                 false);
         Message msg3 = new Message(UUID.randomUUID().toString(),
                 "How are you?",
-                "16:05",
                 System.currentTimeMillis(),
                 user,
                 false);
         Message msg4 = new Message(UUID.randomUUID().toString(),
                 "I am fine! And you?",
-                "16:06",
                 System.currentTimeMillis(),
                 sender,
                 false);
@@ -60,9 +56,11 @@ public class HardcodeGenerator {
 
         RealmList<Message> messages = createDialog(sender, user);
 
-        Chat chat = new Chat(UUID.randomUUID().toString(),
-                sender,
-                messages);
+        Chat chat = new Chat(
+                UUID.randomUUID().toString(),
+                sender);
+        for (Message message: messages)
+            chat.addMessage(message);
 
         return chat;
     }

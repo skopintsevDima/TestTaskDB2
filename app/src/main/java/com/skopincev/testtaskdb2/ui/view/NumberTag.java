@@ -2,6 +2,7 @@ package com.skopincev.testtaskdb2.ui.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
@@ -53,15 +54,20 @@ public class NumberTag extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(getResources().getColor(R.color.light_blue));
-        float radius = canvas.getWidth() / 2;
-        canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, radius, paint);
-        String text = String.valueOf(number);
-        paint.setColor(getResources().getColor(R.color.white));
-        paint.setTextSize(getResources().getDimension(R.dimen.text_very_small));
-        paint.setFakeBoldText(true);
-        drawTextCenter(canvas, paint, text);
-        super.onDraw(canvas);
+        if (number > 0){
+            Paint paint = new Paint();
+            paint.setColor(getResources().getColor(R.color.light_blue));
+            float radius = canvas.getWidth() / 2;
+            canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, radius, paint);
+            String text = String.valueOf(number);
+            paint.setColor(getResources().getColor(R.color.white));
+            paint.setTextSize(getResources().getDimension(R.dimen.text_very_small));
+            paint.setFakeBoldText(true);
+            drawTextCenter(canvas, paint, text);
+            super.onDraw(canvas);
+        } else {
+            canvas.drawColor(Color.WHITE);
+        }
+
     }
 }

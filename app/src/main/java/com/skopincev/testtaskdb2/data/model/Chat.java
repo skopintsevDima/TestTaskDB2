@@ -48,15 +48,25 @@ public class Chat extends RealmObject{
         return count;
     }
 
+    public void addMessage(Message msg){
+        if (!messages.isEmpty()){
+            Message last = messages.last();
+            long difference = msg.getTimeSend() - last.getTimeSend();
+            msg.setLastMsgDifference(difference);
+        } else {
+            long difference = 0;
+            msg.setLastMsgDifference(difference);
+        }
+        messages.add(msg);
+    }
+
     public Chat(){
 
     }
 
     public Chat(String id,
-                User companion,
-                RealmList<Message> messages) {
+                User companion) {
         this.id = id;
         this.companion = companion;
-        this.messages = messages;
     }
 }

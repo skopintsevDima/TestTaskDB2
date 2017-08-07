@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.skopincev.testtaskdb2.BundleConst;
 import com.skopincev.testtaskdb2.R;
@@ -78,7 +79,7 @@ public class ChatActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.mi_block:{
-                //TODO: some action will be here
+                Toast.makeText(this, "User blocked!", Toast.LENGTH_LONG).show();
                 break;
             }
             case android.R.id.home:{
