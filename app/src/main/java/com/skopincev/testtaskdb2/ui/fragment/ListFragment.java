@@ -16,6 +16,7 @@ import com.skopincev.testtaskdb2.data.db.RealmApiImpl;
 import com.skopincev.testtaskdb2.data.model.Chat;
 import com.skopincev.testtaskdb2.data.model.User;
 import com.skopincev.testtaskdb2.ui.adapter.ChatsAdapter;
+import com.skopincev.testtaskdb2.ui.adapter.ChatsAdapter.OnChatOpenListener;
 import com.skopincev.testtaskdb2.ui.adapter.ChatsAdapter.OnChatsChangeListener;
 
 /**
@@ -27,6 +28,7 @@ public class ListFragment extends Fragment {
     private RecyclerView recyclerView;
     private ChatsAdapter adapter;
     private OnChatsChangeListener onChatsChangeListener;
+    private OnChatOpenListener onChatOpenListener;
 
     private User user;
     private RealmApi realmApi = new RealmApiImpl();
@@ -37,6 +39,10 @@ public class ListFragment extends Fragment {
 
     public void setOnChatsChangeListener(OnChatsChangeListener onChatsChangeListener) {
         this.onChatsChangeListener = onChatsChangeListener;
+    }
+
+    public void setOnChatOpenListener(OnChatOpenListener onChatOpenListener) {
+        this.onChatOpenListener = onChatOpenListener;
     }
 
     public static ListFragment newInstance() {
@@ -65,7 +71,11 @@ public class ListFragment extends Fragment {
 
     private void initRecyclerView() {
         loadChats();
-        adapter = new ChatsAdapter(getActivity(), user, onChatsChangeListener);
+        adapter = new ChatsAdapter(
+                getActivity(),
+                user,
+                onChatsChangeListener,
+                onChatOpenListener);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
     }
@@ -73,11 +83,15 @@ public class ListFragment extends Fragment {
     private void loadChats() {
         if (user.getChats().size() == 0){
             Chat chat = HardcodeGenerator.createChat(user);
-            realmApi.putChat(chat);
+            Chat simpleChat = HardcodeGenerator.createSimpleChat(user);
 
-            int chats_count = 10;
+            realmApi.putChat(chat);
+            realmApi.putChat(simpleChat);
+
+            int chats_count = 5;
             for (int i = 0; i < chats_count; i++) {
                 user.addChat(chat);
+                user.addChat(simpleChat);
             }
             onChatsChangeListener.onChanged();
         }

@@ -16,6 +16,8 @@ public interface RealmApi {
 
     Chat getChatById(String id);
 
+    void setChatOpenedState(Chat chat);
+
     void putUser(User user);
 
     User getUserById(String id);

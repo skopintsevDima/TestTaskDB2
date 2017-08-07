@@ -82,12 +82,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager(), user, () -> {
-            View view = tabLayout.getTabAt(0).getCustomView();
-            NumberTag ntUnread = (NumberTag) view.findViewById(R.id.nt_messages);
-            ntUnread.setNumber(user.getUnreadCount());
-        });
+        adapter = new ViewPagerAdapter(
+                getSupportFragmentManager(),
+                user,
+                () -> updateUnreadMessages(),
+                chat -> {
+                    realmApi.setChatOpenedState(chat);
+                    updateUnreadMessages();
+                });
         viewPager.setAdapter(adapter);
+    }
+
+    private void updateUnreadMessages() {
+        View view = tabLayout.getTabAt(0).getCustomView();
+        NumberTag ntUnread = (NumberTag) view.findViewById(R.id.nt_messages);
+        ntUnread.setNumber(user.getUnreadCount());
     }
 
     @Override

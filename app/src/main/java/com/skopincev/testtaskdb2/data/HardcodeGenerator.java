@@ -20,12 +20,11 @@ public class HardcodeGenerator {
     public static RealmList<Message> createSimpleDialog(User sender, User user) {
         RealmList<Message> messages = new RealmList<>();
 
-        //TODO: implement unread mechanism
         Message msg1 = new Message(UUID.randomUUID().toString(),
                 "Hello!!!",
                 System.currentTimeMillis(),
                 user,
-                false);
+                true);
         Message msg2 = new Message(UUID.randomUUID().toString(),
                 "Hi!!!",
                 System.currentTimeMillis(),
@@ -35,7 +34,7 @@ public class HardcodeGenerator {
                 "How are you?",
                 System.currentTimeMillis(),
                 user,
-                false);
+                true);
         Message msg4 = new Message(UUID.randomUUID().toString(),
                 "I am fine! And you?",
                 System.currentTimeMillis(),
@@ -70,12 +69,11 @@ public class HardcodeGenerator {
     public static RealmList<Message> createDialog(User sender, User user) {
         RealmList<Message> messages = new RealmList<>();
 
-        //TODO: implement unread mechanism
         Message msg1 = new Message(UUID.randomUUID().toString(),
                 "Hello!!!",
                 System.currentTimeMillis() - 2 * TimeResolver.DAYS_IN_MILLI,
                 user,
-                false);
+                true);
         Message msg2 = new Message(UUID.randomUUID().toString(),
                 "Hi!!!",
                 System.currentTimeMillis() - 2 * TimeResolver.DAYS_IN_MILLI,
@@ -85,12 +83,12 @@ public class HardcodeGenerator {
                 "How are you?",
                 System.currentTimeMillis() - TimeResolver.DAYS_IN_MILLI,
                 user,
-                false);
+                true);
         Message msg4 = new Message(UUID.randomUUID().toString(),
                 "What's new?",
                 System.currentTimeMillis() - TimeResolver.DAYS_IN_MILLI,
                 user,
-                false);
+                true);
         Message msg5 = new Message(UUID.randomUUID().toString(),
                 "I am fine!!!",
                 System.currentTimeMillis(),

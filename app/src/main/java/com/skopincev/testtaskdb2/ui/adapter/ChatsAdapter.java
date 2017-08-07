@@ -82,7 +82,12 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
             intent.putExtra(BundleConst.COMPANION_NAME_KEY, data.getCompanion().getName());
             intent.putExtra(BundleConst.USER_ID_KEY, user.getId());
             context.startActivity(intent);
+            onChatOpenListener.onOpen(data);
         }
+    }
+
+    public interface OnChatOpenListener{
+        void onOpen(Chat chat);
     }
 
     public interface OnChatsChangeListener {
@@ -95,12 +100,17 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatHolder> 
     private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
     private RealmApi realmApi = new RealmApiImpl();
     private OnChatsChangeListener onChatsChangeListener;
+    private OnChatOpenListener onChatOpenListener;
 
-    public ChatsAdapter(Context context, User user, OnChatsChangeListener onChatsChangeListener){
+    public ChatsAdapter(Context context,
+                        User user,
+                        OnChatsChangeListener onChatsChangeListener,
+                        OnChatOpenListener onChatOpenListener){
         this.inflater = LayoutInflater.from(context);
         this.user = user;
         this.items = user.getChats();
         this.onChatsChangeListener = onChatsChangeListener;
+        this.onChatOpenListener = onChatOpenListener;
         viewBinderHelper.setOpenOnlyOne(true);
     }
 

@@ -1,6 +1,7 @@
 package com.skopincev.testtaskdb2.data.db;
 
 import com.skopincev.testtaskdb2.data.model.Chat;
+import com.skopincev.testtaskdb2.data.model.Message;
 import com.skopincev.testtaskdb2.data.model.User;
 
 
@@ -38,6 +39,15 @@ public class RealmApiImpl implements RealmApi {
                 .equalTo("id", id)
                 .findFirst();
         return chat;
+    }
+
+    @Override
+    public void setChatOpenedState(Chat chat) {
+        realm.executeTransaction(rm -> {
+            for (Message message: chat.getMessages())
+                message.setRead(true);
+            rm.copyToRealmOrUpdate(chat);
+        });
     }
 
     @Override
